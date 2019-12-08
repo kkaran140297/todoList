@@ -13,9 +13,9 @@
                         <input type="text" class="form-control" [(ngModel)]="todo" name="todo" />
                     </div>
                     <div class="form-group w60">
-                        <input type="text" placeholder="Select a Date" class="form-control dateInput"
-                            [outsideClick]="true" bsDatepicker [(ngModel)]="date" name="date"
-                            [bsConfig]="{ isAnimated: true, containerClass: 'theme-blue' }">
+                        <input type="text" placeholder="Select a Date" class="form-control" #dp="bsDatepicker"
+                            [outsideClick]="true" bsDatepicker [(bsValue)]="date" value="{{ date | date:'dd-MM-yyyy' }}"
+                            name="date" [bsConfig]="{ isAnimated: true, containerClass: 'theme-blue' }">
                     </div>
                 </div>
                 <div class="add-button">

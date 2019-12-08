@@ -4,7 +4,26 @@
     </div>
     <div class="row m40">
         <div class="col-md-6">
-            <app-todoform></app-todoform>
+            <div class="todoFormContainer container">
+                <div class="form row">
+                    <div class="head">
+                        <h2>Add Todo</h2>
+                    </div>
+                    <div class="form-group w60">
+                        <input type="text" class="form-control" [(ngModel)]="todo" name="todo" />
+                    </div>
+                    <div class="form-group w60">
+                        <input type="text" placeholder="Select a Date" class="form-control dateInput"
+                            [outsideClick]="true" bsDatepicker [(ngModel)]="date" name="date"
+                            [bsConfig]="{ isAnimated: true, containerClass: 'theme-blue' }">
+                    </div>
+                </div>
+                <div class="add-button">
+                    <button class="btn btn-sm btn-primary" (click)="saveTodo()">
+                        Save
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="refresh-btn">
@@ -17,12 +36,14 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let t of todo">
+                    <tr *ngFor="let t of todoData">
                         <td>{{t.todo}}</td>
                         <td>{{t.date | date}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary del-btn" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                            data-target="#delete" (click)="getId(t._id)">Delete</button>
+                            <button class="btn btn-sm btn-primary del-btn ml-2" data-backdrop="static"
+                                data-keyboard="false" data-toggle="modal" data-target="#delete"
+                                (click)="getId(t._id)">Delete</button>
+                            <button class="btn btn-sm btn-primary del-btn" (click)="getData(t)">Edit</button>
                         </td>
                     </tr>
                 </tbody>
@@ -33,25 +54,24 @@
 
 <!-- Modal for delete -->
 <div class="modal fade" id="delete">
-        <div class="modal-dialog">
-          <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" (click)="clearData()">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" (click)="clearData()">&times;</button>
             </div>
             <div class="modal-body">
-              <div class="mt-3">
-                <p>Do you really want to delete this todo?</p>
-              </div>
+                <div class="mt-3">
+                    <p>Do you really want to delete this todo?</p>
+                </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary btn-sm transparent-default" data-dismiss="modal">
-                Cancel
-              </button>
-              <button type="submit" class="btn-primary btn-sm default-btn" data-dismiss="modal"
-                (click)="delete()">
-                Yes
-              </button>
+                <button type="submit" class="btn btn-primary btn-sm transparent-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn-primary btn-sm default-btn" data-dismiss="modal" (click)="delete()">
+                    Yes
+                </button>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
